@@ -1,0 +1,234 @@
+\documentclass{article}
+
+% Sonderzeichen ermöglichen
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{a4wide}
+\usepackage{xcolor}
+
+
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+%
+\newcommand{\version}{0.0.1}
+\newcommand{\ushort}{uwgmn}
+\newcommand{\myName}{Julian Keck | \ushort}
+\newcommand{\myEmail}{\ushort@student.kit.edu}
+\newcommand{\creationYear}{2021}
+
+%Kopf und Fußzeile
+\usepackage{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\ihead{}
+\chead{}
+\ohead{}
+\lofoot{\footnotesize Fehler oder Vorschläge? $\Rightarrow$ \myEmail }
+\cfoot{\pagemark}
+\rofoot{\small{\textcopyright}  \myName $\;$-$\;$\creationYear}
+ %\pagemark
+
+%Subtitle
+\usepackage{relsize}
+\newcommand{\subtitlerelsize}{1} %relative size: integer value
+\newcommand{\subtitlelinesep}{0.1em} %line separation: a LaTeX length
+
+% Hyperlinks in das Dokument einfügen
+\usepackage{hyperref}
+
+% Mathe-Packages einbinden
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% Graphen
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\renewcommand\labelenumi{(\roman{enumi})}
+\renewcommand\theenumi\labelenumi
+
+%Farbdefinitionen
+\definecolor{strongColor}{RGB}{189, 66, 0}
+\definecolor{lightblue}{RGB}{0, 140, 232}
+\definecolor{importantColor}{RGB}{163, 19, 0}
+\definecolor{ForestGreen}{RGB}{34,139,34}
+
+% Eigene Befehlsdefinitionen
+\newcommand{\N}{\mathbb{N_+}} %Natürliche Zahlen (ohne 0)
+\newcommand{\Nz}{{\mathbb{N}_0}} %Natürliche Zahlen (mit 0)
+\newcommand{\Z}{\mathbb{Z}} % Ganze Zahlen
+\newcommand{\Q}{\mathbb{Q}} % Rationale Zahlen
+\newcommand{\R}{\mathbb{R}} % Reelle Zahlen
+\newcommand{\vektor}[1]{\begin{pmatrix}#1\end{pmatrix}} %Vetoren
+
+\newcommand{\leer}{$\varepsilon$}
+\newcommand{\deq}{$\dot{=}$}
+
+\newcommand{\kapitel}[2]{Kapitel #1 - \textsc{#2}}
+
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\babyblue}[1]{\textcolor{lightblue}{#1}}
+
+\newcommand{\strongColor}[1]{\textcolor{strongColor}{#1}}
+\newcommand{\strong}[1]{\textbf{\strongColor{#1}}}
+
+\newcommand{\important}[1]{\textcolor{importantColor}{#1}}
+\newcommand{\verweis}[1]{\textcolor{ForestGreen}{#1}}
+
+\newcommand{\example}[1]{\textit{Beispiel: }#1}
+\newcommand{\word}[1]{\blue{\texttt{#1}}}
+\newcommand{\interpretation}[1]{\babyblue{#1}}
+\newcommand{\set}[1]{\{#1\}}
+\newcommand{\anfuehrung}[1]{\flqq #1\frqq}
+
+\newcommand{\w}{\textsf{w}}
+
+\newcommand{\wsp}{\word{\tiny $\sqcup$}}
+\newcommand{\wnot}{$\,$\word{$\lnot$}$\,$}
+\newcommand{\wand}{$\,$\word{$\land$}$\,$}
+\newcommand{\wor}{$\,$\word{$\lor$}$\,$}
+\newcommand{\wimpl}{$\,$\word{$\rightarrow$}$\,$}
+\newcommand{\wall}{$\,$\word{$\forall$}$\,$}
+\newcommand{\wexist}{$\,$\word{$\exists$}$\,$}
+\newcommand{\val}[2]{val$\null_{#1}$(#2)}
+\newcommand{\valdib}[1]{val$\null_{D,I\beta}$#1}
+
+\newcommand{\Fbox}[1]{\fbox{\strut#1}}
+\setlength{\fboxsep}{1pt}% Just for this example
+\setlength{\parindent}{0pt}% Just for this example
+
+\newcommand*{\mystrut}{\rule[-0.05\baselineskip]{0pt}{2\baselineskip}}
+\newcommand*{\wordbox}[1]{\Fbox{#1}}
+
+
+\newtheorem{satz}{Satz}
+\newtheorem{aufgabe}{Aufgabe}
+\newtheorem*{tipp*}{Tipp}
+\setlength{\parindent}{0px}
+
+\begin{document}
+\title{Zusammenfassung Algo-1 [im SS2021]\\[\subtitlelinesep]%
+    \smaller[\subtitlerelsize]{}Version \version}
+\author{Julian Keck\\uwgmn}
+%\date{10.12.2020}
+\date{\today}
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{\kapitel{1}{Algorithmen}}
+\subsection{Begriffsdefinition}
+\begin{itemize}
+    \item Ein Algorithmus ist eine \important{Rechenvorschrift zur Lösung eines Problems, bestehend aus endlich vielen, wohldefinierten Einzelschritten}
+\end{itemize}
+\subsection{Eigenschaften eines Algorithmus}
+\begin{itemize}
+    \item bestitzt Ein und Ausgabe
+    \item Verfahren muss eindeutig beschreibbar sein (\strong{Finitheit})
+    \item Jeder Schritt muss \important{ausführbar} sein (\strong{Ausführbarkeit})
+    \item Verfahren darf nur endlich viel Speicher belegen
+    \item Verfahren darf nur endlich viele Schritte benötigen
+\end{itemize}
+Algorithmen bearbeiten (strukturierte) Daten, daher sind Algorithmen und Datenstrukturen eng verknüpft.
+
+\subsection{Vergleich von Algorithmen}
+\subsubsection{Verbrauchte Rechenzeit}
+\begin{itemize}
+    \item Laufzeit des Programms selbst
+    \item In der Praxis zusätzlich: Zeit für Ein-/Ausgabe, etc...
+\end{itemize}
+\subsubsection{Verbrauchter Speicher für Programm und Datenstrukturen}
+\begin{itemize}
+    \item Platz für das Programm selbst
+    \item Platz für statische Datenstrukturen
+    \item Platz für dynamsiche Datenstrukturen
+\end{itemize}
+
+\subsubsection{Analyse von Algorithmen}
+\begin{itemize}
+    \item formale Betrachtung des Algorithmus
+    \item theoretische Abschätzung der Laufzeit oder des Speicherbedarfs abhängig von der Eingabegröße
+\end{itemize}
+
+\subsection{Pseudocode}
+Zur Beschreibung von Algorithmen wird oftmals Pseudocode verwendet, da dieser klar von Programmcode unterschieden werden kann und dieser Redundanzen oder Unklarheiten, die durch \dq Besonderheiten\dq einer bestimmten Programmiersprache entstehen, vorbeugt.
+
+\subsection{Algorithm Engineering}
+Klassiche Algorithmik beschränkt sich auf die Theorie\\
+Beim tatsächlichen Design von Algorithmen sollte neben der theoretischen Analyse aber auch immer eine experimentelle Evaluierung stattfinden. Das Gebiet \anfuehrung{Algorithm Engineering} schließt also die Lücke zwischen Theorie und Praxis.
+
+\subsection{Korrektheit / Design by Contract}
+\subsubsection{Contracts}
+Auch \anfuehrung{Verträge} genannt, bestehen aus:
+\begin{itemize}
+    \item \important{Vorbedingungen (preconditions)}: Zusicherungen, die beim Aufruf (der Funktion/Algorithmus) einzuhalten sind.
+    \item \important{Nachbedingungen (postconditions)}: Zusicherungen, die am Ende (der Funktion/Algoirthmus) gelten
+\end{itemize}
+\subsubsection{Assertions}
+Aussagen über den Zustand der Programmausführung
+\begin{itemize}
+    \item \important{Vorbedingung}: Bedingung für korrektes Funktionieren einer Funktion.
+    \item \important{Nachbedingung}: Leistungsgarantie einer Funktion, falls Vorbedingung erfüllt.
+\end{itemize}
+
+\subsubsection{Invarianten}
+Zusicherungen, die an einer bestimmten Stelle (im Programm/Algoithmus) gelten
+\begin{itemize}
+    \item \important{Schleifeninvarianten}: Gelten vor/nach jeder Ausführung des Schleifenkörpers.
+    \item \important{Datenstrukturinvarianten}: Gelten vor/nach jedem Aufruf einer Operation auf einem abstrakten Datentypen.
+\end{itemize}
+Invarianten sind zentrales Mittel für Korrektheitsbeweise im Algorithmen-/Programmentwurf.
+
+\newpage
+\section{Laufzeitanalyse von Algorithmen}
+\subsection{Asymptotischer Aufwand / O-Kalkül}
+Bereits aus GBI bekannt:\\
+$O(f(n))=\set{g(n)\mid\exists c > 0: \exists n_0\in\N:\forall n \geq n_0:g(n)\leq c\cdot f(n)}$\\
+$\Theta(f(n))=\set{g(n)\mid\exists c > 0: \exists n_0\in\N:\forall n \geq n_0:g(n)= c\cdot f(n)}$\\
+$\Omega(f(n))=\set{g(n)\mid\exists c > 0: \exists n_0\in\N:\forall n \geq n_0:g(n)\geq c\cdot f(n)}$\\
+Zusätzlich definieren wir \\
+$o(f(n))=\set{g(n)\mid\forall c > 0: \exists n_0\in\N:\forall n \geq n_0:g(n)\leq c\cdot f(n)}$, also \anfuehrung{echt kleiner/langsamer}, sowie\\
+$\omega(f(n))=\set{g(n)\mid\forall c > 0: \exists n_0\in\N:\forall n \geq n_0:g(n)\geq c\cdot f(n)}$, also  \anfuehrung{echt größer/schneller}.
+\subsubsection{Rechenregeln im O-Kalkül}
+\begin{itemize}
+    \item $\forall c > 0:\;cf(n)\in\Theta(f(n))$
+    \item $\displaystyle{\sum^k_{i_0}}a_in^i\in O(n^k)$ \qquad (Der größte Exponent im Polynom entscheidet)
+    \item $f(n)+g(n)\in\Omega(f(n))$
+    \item $f(n)+g(n)\in O(f(n)), \text{ falls }g(n)\in O(f(n))$
+    \item $O(f(n)) \cdot O(g(n)) = O(f(n)\cdot g(n))$
+\end{itemize}
+
+\subsubsection{Rechenregeln für Algorithmen}
+\begin{itemize}
+    \item $T(I;I') = T(I) + T(I')$
+    \item $T(\word{if }C\word{ then } I \word{ else } I') \in O(T(C)+\textit{max}(T(I), T(I'))$
+    \item $T(I;I') = T(I) + T(I')$
+\end{itemize}
+
+\subsection{Master Theorem - Laufzeit \textit{rekursiver} Algorithmen}
+Beschreibe $r(n)\begin{cases}
+\word{a} & \text{falls }n=1\text{ (Basisfall)}\\
+\word{c}\cdot n+\word{d}\cdot r(\frac{n}{\word{b}}) & \text{falls }n>1\text{ (teile und herrsche)}
+\end{cases}$ die Laufzeit eines \textsc{Teile und Herrsche}-Algorithmus und außerdem gelte $\word{a}, \word{b}, \word{c}, \word{d}>0$ und $n=\word{b}^k$ für $k\in\N$.\\
+Dann gilt:
+\[
+    r(n)\in\begin{cases}
+        \Theta(n)&\text{falls d<b}\\
+        \Theta(n\cdot log(n))&\text{falls d=b}\\
+        \Theta(n^{log_b(d)})&\text{falls d>b}
+    \end{cases}
+\]
+\textit{Die Werte a und c sind also für die asymptotische Laufzeit irrelevant.}
+\subsubsection{Beispiele}
+\begin{itemize}
+    \item $d<b$: Median bestimmen\\
+    \item $d=b$: Sortieralgorithmen wie mergesort, quicksort\\
+    \item $d>b$: rekursive Multiplikation, Karatsuba-Ofman-Multiplikation
+\end{itemize}
+
+\end{document}
