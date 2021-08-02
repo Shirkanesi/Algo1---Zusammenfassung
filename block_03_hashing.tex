@@ -1,0 +1,65 @@
+\section{Hashing (Streuspeicherung), Hashtabellen}
+\begin{itemize}
+    \item Speichere Menge $M \subseteq Element$
+    \item $key(e)$ ist eindeutig für $e \in M$
+    \item Unterstütze Wörterbuchoperationen in $O(1)$
+    \begin{itemize}
+        \item $M.insert(e : Element): M := M \cup \{e\}$
+        \item $M.remove(k: Key): M := M \setminus \{e\}, key(e) = k$
+        \item $M.find(k: Key):$ return $e \in M$ with $key(e)=k$; $\bot$ falls nicht vorhanden
+    \end{itemize}
+    \item $e = e'$ gdw. $key(e) = key(e')$
+\end{itemize}
+
+\subsection{Anwendung}
+\begin{itemize}
+    \item Enternen von Duplikaten
+    \item Symboltabellen
+\end{itemize}
+
+\subsection{Perfekte Hashfunktionen}
+\begin{itemize}
+    \item Eine perfekte Hashfunktion bildet alle Elemente injektiv ab.
+    \item Solche funktionen sind schwer zu finden.
+\end{itemize}
+Lösung:
+
+Für ein Key werden nicht nur Elemente sondern listen von Elementen geführt.
+
+\fig{Kollisionsauflösung Hashing}{./data/kollisionsauflösung}
+
+Nachteil:
+\begin{itemize}
+    \item remove(k): O(Listenlänge)
+    \item remove(k): O(Listenlänge)
+    \item find(k) : O(Listenlänge)
+\end{itemize}
+
+Schlechtester Fall $O(|M|)$
+
+\subsubsection{Beispiel}
+person: \{name: string, bithday: date\} \\
+key(o: person) := name \\
+\\
+A:= \{name: Julian, bithday: 29.05.01\} \\
+B:= \{name: Niklas, bithday: 06.08.01\} \\
+\\
+key(A) = Julian \\
+key(B) = Niklas \\
+
+\fig{Penis}{./data/hashMapBsp}
+
+\subsection{Hashing mit linearer Suche}
+\begin{itemize}
+    \item Elemente werden direkt in der Tabelle gespeichert
+    \item Kollisionen werden durch finden anderer Stellen aufgelöst
+    \item linear probing: suche nächsten freien Platz
+    \item am Ende fange von vorn an
+\end{itemize}
+
+Bilde $h[key(e)]$ und suche nächsten freien Platz in der Liste.\\
+\fig{Linear Probing}{./data/linearProbingHash}
+
+Beim entfernen halt die invariante der Datenstruktur in Takt indem die Elemente so verschoben werden, das keine Lücke entsteht.
+
+\fig{Landschaft bestehend aus 100.000.000 Dreiecken}{./data/landschaft}

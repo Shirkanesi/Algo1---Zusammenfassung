@@ -1,0 +1,128 @@
+\section{Datenstrukturen}
+\subsection{Graphen}
+Ein Graph besteht grundsätzlich aus zwei Mengen. Einer Knotenmenge $V$ und einer Kantenmenge $E$. Den Graph bezeichnet man als $G = (V, E)$. Die Inhalte der Kantenmenge können hierbei gerichtete Kanten sein ($(v_1,v_2) \in E$) oder ungerichtete Kanten ($\{v_1,v_2\}\in E$)
+\subsubsection{Bäume}
+In einem Baum $B$ gilt für alle Knoten $v \neq$ Wurzelknoten: $d^-_B(v) = 1$\\
+In einem gerichteten Baum ist der Wurzelknoten eindeutig.
+
+\subsubsection{Gerichteter azyklischer Graph (DAG)}
+Ein DAG ist ein gerichteter Graph, der keine Kreise enthält.
+\begin{PseudoCode}[caption=DAG-Bestimmung]
+Function isDAG(G = (V, E))
+    while $\exists$ v $\in$ V : outdegree(v) = 0 do
+        invariant G is a DAG iff the input graph is a DAG
+        V := V \ {v}
+        E := E \ ({v} x V $\cup$ V x {v})
+    return |V| = 0
+\end{PseudoCode}
+Die Idee dieses Algorithmuses ist, den Graphen von den \glqq äußersten\grqq\ Knoten aus aufzulösen, bis am Ende nur noch ein einzelner Knoten übrig bleibt, der selbst trivialer Weise ein DAG ist. 
+
+\subsection{Folgen/Listen}
+Für Folgen gibt es eine Vielzahl von Begriffen: Folge, Feld, Schlange, Liste, Datei, Stapel, Zeichenkette.\\
+Wir unterscheiden:
+\begin{itemize}
+    \item abstrakter Begriff: $\langle 2,3,5,7,11 \rangle$
+    \item Funktionalität (stack, \dots)
+    \item Repräsentation und Implementierung
+\end{itemize}
+Anwendungen von Folgen sind unter Anderem das \textbf{Ablegen} und \textbf{Bearbeiten} von Daten aller Art, sowie die Repräsentation abstrakterer Konzepte (Mengen, Graphen, \dots).
+
+\subsection{Doppelt verkettete Listen}
+Listenglieder (Items)
+\begin{PseudoCode}[caption=Doppelt Verkettete Liste]
+Class Handle = Pointer to Item
+
+Class Item of Element
+    e : Element
+    next : Handle   $\textcomment{Next Item}$
+    prev : Handle   $\textcomment{Previous Item}$
+    invariant next$\rightarrow$prev$=$prev$\rightarrow$next$=$this
+\end{PseudoCode}
+
+\subsubsection{Dummy Header}
+Der Dummy-Header ist ein Listenelement, in dem \important{nix} ($\bot$) gespeichert wird. Dieses Element sorgt dafür, dass das erste Element einen Vorgänger und das letzte Element einen Nachfolger hat. $\Rightarrow$ Invariante immer erfüllt.
+
+\subsection{Die Listenklasse}
+\begin{PseudoCode}[caption=Listenklasse]
+Class List of Element
+    Function head:Handle
+        return address of h
+    Function isEmpty:{0,1}
+        return h.next = head
+    Function first:Handle
+        assert $\neg$isEmpty
+        return h.next
+    Function last:Handle
+        assert $\neg$isEmpty
+        return h.prev
+\end{PseudoCode}
+
+\subsection{Splice-Operation}
+\lstinline[language=Pseudo]|Procedure splice(a, b, t : Handle)|\\
+Die Splice-Operation ermöglicht das Einfügen von einer Liste zwischen zwei Listenelementen einer anderen Liste.
+
+\subsection{Suchen}
+\begin{PseudoCode}[caption=Simple Suche]
+Function findNext(x: Element, from: Handle): Handle
+    h.e = x     // Sentinel
+    while from$\rightarrow$e$\neq$x do
+        from := from$\rightarrow$next
+    return from
+\end{PseudoCode}
+
+\subsection{Einfach verkettete Listen}
+In einer einfach verketteten Liste kennt jedes Element nur sein nachfolge-Element, nicht aber seinen Vorgänger. Dies spart Speicherplatz, dafür kosten viele Operationen deutlich mehr Zeit.
+
+\subsection{Felder/Arrays}
+\subsubsection{UArray/Unbounded Array/Unbeschränktes Feld}
+Felder dynamischer Größe $\Rightarrow$ Array wird von der Größe her verdoppelt, falls es voll ist. Ist maximal $\frac{1}{4}$ der Plätze belegt, wird das Array mit der halben Größe reallocated.
+
+\subsubsection{CArray/Circular Array}
+Der Nachfolger des letzten Elements ist das erste Element.
+
+
+\subsection{Stapel und Schlange}
+\begin{itemize}
+    \item Einfache Schnittstellen
+    \item Vielseitig einsetzbar
+    \item austauschbare, effiziente Implementierungen
+    \item wenig Fehleranfällig
+\end{itemize}
+\fig{Vergleich Stack, FIFO-queue und Deque}{./data/stack_fifo_deque}
+
+\subsubsection{Stapel / Stack}
+\textbf{push}/\textbf{pop} entsprechen \important{entweder} \textbf{pushFront} / \textbf{popFront} \important{oder} \textbf{pushBack} / \textbf{popBack} für Folgen.\\
+\textbf{SList} reicht für die Implementierung vollkommen aus.
+
+\subsubsection{Warteschlange / \word{F}irst-\word{I}n-\word{F}irst-\word{O}ut (FIFO)}
+\textbf{enqueue} / \textbf{dequeue} entsprechen \important{entweder} \textbf{pushFront} / \textbf{popBack} \important{oder} \textbf{pushBack} / \textbf{popFront} für Folgen.\\
+Implementierung mittels \textbf{SList} oder \textbf{CArray}.
+
+\subsubsection{Deque / \word{D}ouble-\word{E}nded \word{Que}ue}
+Anwendungen: relativ selten –oft werden nur 3 der vier Operationen benötigt\\
+Implementierung mittels \textbf{List} oder \textbf{CArray}.
+
+\subsection{Komplexität typischer Operationen}
+\begin{tabular}{l|cccc|l}
+    \toprule
+    Operation & List & SList & UArray & CArray & *Anmerkung
+    \\\midrule
+    \verb|[|.\verb|]| Zugriff auf i-tes Element & n & n & 1 & 1 &\\
+    |.| Anzahl Elemente & 1* & 1* & 1 & 1 & nicht mit inter-list-splice\\
+    first & 1 & 1 & 1 & 1 &\\
+    last & 1 & 1 & 1 & 1 & \\
+    insert & 1 & 1* & n & n & nur insertAfter\\
+    remove & 1 & 1* & n & n & nur removeAfter\\
+    pushBack & 1 & 1 & 1* & 1* & amortisiert \\
+    popBack & 1 & n & 1* & 1* & amortisiert \\
+    popFront & 1 & 1 & n & 1* & amortisiert \\
+    concat & 1 & 1 & n & n & \\
+    splice & 1 & 1 & n & n & \\
+    findNext, \dots & n & n & n* & n* & cache-effizient\\
+    \bottomrule
+\end{tabular}\\
+\begin{tabular}{ll}
+    \textbf{List} = Doppelt verkettete Liste & \textbf{SList} = Einfach verkettete Liste \\
+    \textbf{UArray} = Unbeschränktes Array & \textbf{CArray} = Cyclisches Array (Zyklisches Array aber das C ist da nicht drin, deswegen Denglisch wtf)
+\end{tabular}
+

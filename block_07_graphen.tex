@@ -1,0 +1,18 @@
+\section{Graphen}
+Graph G ist $G = (V,E)$ mit Knoten V und Kanten E
+\subsection{Notationen}
+\begin{itemize}
+    \item $n = |V|$
+    \item $m = |E|$
+    \item Knoten: s,t,u,v,w,x,y,z
+    \item Kanten $e \in E$
+\end{itemize}
+
+\subsection{Adjazenzfelder}
+\begin{itemize}
+    \item Speichern zweier Listen
+    \item Feld V speichert Indizes der ersten ausgehenden Kante
+    \item Liste E speichert die Ziele nach Startknoten
+    \item Dummy-Entrag V[n+1] speichert m+1
+\end{itemize}
+\fig{Adjazenzfelder}{./data/adjazenzfelder}

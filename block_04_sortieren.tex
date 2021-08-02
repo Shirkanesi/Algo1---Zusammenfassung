@@ -1,0 +1,50 @@
+\section{Sortieren}
+Formale Definition von Sortieren:\\
+Gegeben: Elementfolge $s = \langle e_1, \dots, e_n \rangle$\\
+Gesucht: $s'=\langle e_1',\dots,e_n'\rangle$ mit:\\
+$s'$ ist Permutation von $s$ und $e_1'\leq\dots\leq e_n'$ für eine 
+\important{Totalordnung} \footnote{Für eine Totalordnung gilt \textbf{Reflexivität} ($x\leq x$), \textbf{Antisymmetrie}, \textbf{Transitivität} und \textbf{Totalität}($x\leq y \lor y \leq x$), also insbesondere, dass alle Elemente vergleichbar sind.}
+$\leq$
+
+\subsection{Insertionsort}
+\begin{PseudoCode}[caption=Insertion Sort]
+Procedure insertionSort(a: Array[1..n] of Element)
+    for i:= 2 to n do
+        invariant a[1] $\leq\dots\leq$a[i-1]
+        move a[i] to the right place
+\end{PseudoCode}
+Dieser Algorithmus muss pro Element im worst case nochmals alle anderen Elemente durchlaufen $\Rightarrow$ Laufzeit $O(n^2)$.\\
+Im Best-Case: $O(n)$:
+Beispiel: $\langle4\rangle,\langle1,1,1\rangle\rightsquigarrow\langle4,7\rangle,\langle1,1\rangle\rightsquigarrow\langle1,4,7\rangle,\langle1\rangle\rightsquigarrow\langle1,1,4,7\rangle,\langle\rangle$
+
+\subsection{Mergesort}
+Idee: Teile die zu sortierende Menge in $n$ Teillisten ($1$ Liste für jedes Item also) und füge diese dann wieder schrittweise zusammen.
+\begin{PseudoCode}[caption=Merge Sort]
+Function mergeSort(a: <a_1, ... , a_n>): List
+    if a.size = 1
+        return <a_1>
+    else
+        return merge(
+            mergeSort(<a_1, ... , a_n/2>),
+            mergeSort(<a_n/2 + 1, ... , a_n))
+\end{PseudoCode}
+
+Mergesort hat eine feste Laufzeit von $\theta(n\cdot log(n))$.
+
+\subsection{QuickSort}
+Idee: Teile die Liste nach einem Pivot-Element.
+\begin{PseudoCode}[caption=Quick Sort]
+Function quickSort(s: List): List
+    p := any $p\in s$
+    a := < $e\in s$ | $e<p$ >
+    b := < $e\in s$ | $e=p$ >
+    c := < $e\in s$ | $e>p$ >
+    return < quickSort(a), b, quickSort(c) >
+\end{PseudoCode}
+Im schlechtesten Fall (abhängig vom Pivot-Element) wird eine Laufzeit von $\theta(n^2)$. Mittlere und beste Laufzeit sind stets $\theta(n\cdot log (n))$.
+
+\subsection{Bukkit-Sort}
+Idee: Sortiere Elemente anhand von Hashfunktionen in Eimer und füge diese am Ende zusammen.
+\\
+\important{Achtung}: Je nach Eingabemenge und Hashfunktion ist die Menge nicht unbedingt komplett sortiert
+
