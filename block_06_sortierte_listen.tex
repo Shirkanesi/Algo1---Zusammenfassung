@@ -1,0 +1,40 @@
+\section{Sortierte Listen}
+
+\subsection{Binäre Suche}
+
+\begin{PseudoCode}[caption=Sortiertes Feld mit Binärer Suche]
+$\mathcomment{\text{Find min\{i}\in\text{1..n+1 : a[i]}\leq\text{k\}}}$
+Function locate(a[1..n], k: Element):
+    (l, r) := (0, n+1)          // Assume a[0] = -$\infty$, a[n+1] = $\infty$
+    while l+1 < r do
+        invariant 0 $\leq$ l < r $\leq$ n+1
+        m := $\lfloor$(r+l)/2$\rfloor$          // l < m < r
+        if k $\leq$ a[m] then r := m else l := m
+    return r
+\end{PseudoCode}
+
+\subsection{Operationen auf sortierten Feldern}
+
+\begin{itemize}
+    \item Grundoperationen (\bbb{insert}, \bbb{remove}, \bbb{update}, \bbb{locate}) in O(log $n$)
+    \item \bbb{min}: erstes Listenelement (in konstanter Zeit)
+    \item \bbb{max}: letztes Listenelement (in konstanter Zeit)
+    \item \bbb{rangeSearch}(a, b) in O(log $n$ + |result|)
+\end{itemize}
+
+\begin{PseudoCode}[caption=rangeSearch auf sortierter Liste]
+Function rangeSearch(a, b):
+    result := <>
+    h := locate(a)
+    while h $\rightarrow$ e $\leq$ b
+        result.pushBack(h $\rightarrow$ e)
+        h := h $\rightarrow$ next
+    return result
+\end{PseudoCode}
+
+\begin{itemize}
+    \item (re)build: Navigationsstruktur für \bbb{sortierte} Liste aufbauen in O($n$)
+    \item \angled{w,...,x}.\bbb{concat}(\angled{y,...,z}) = \angled{w,...,x,y,...,z} in O(log $n$)
+    \item \angled{w,...,x,y,...,z}.\bbb{split}(y) = (\angled{z,...,y}, \angled{y,...,z}) in O(log $n$)
+    \item Zählen: \bbb{rank}, \bbb{select}, \bbb{rangeSize} in O(log $n$)
+\end{itemize}

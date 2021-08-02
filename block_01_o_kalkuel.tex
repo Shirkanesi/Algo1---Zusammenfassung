@@ -1,0 +1,117 @@
+\section{\kapitel{1}{Algorithmen}}
+\subsection{Begriffsdefinition}
+
+\definition[0]{Algorithmus}{Ein Algorithmus ist eine \important{Rechenvorschrift zur Lösung eines Problems, bestehend aus endlich vielen, wohldefinierten Einzelschritten}}
+
+\subsection{Eigenschaften eines Algorithmus}
+\begin{itemize}
+    \item bestitzt Ein und Ausgabe
+    \item Verfahren muss eindeutig beschreibbar sein (\strong{Finitheit})
+    \item Jeder Schritt muss \important{ausführbar} sein (\strong{Ausführbarkeit})
+    \item Verfahren darf nur endlich viel Speicher belegen
+    \item Verfahren darf nur endlich viele Schritte benötigen
+\end{itemize}
+Algorithmen bearbeiten (strukturierte) Daten, daher sind Algorithmen und Datenstrukturen eng verknüpft.
+
+\subsection{Vergleich von Algorithmen}
+\subsubsection{Verbrauchte Rechenzeit}
+\begin{itemize}
+    \item Laufzeit des Programms selbst
+    \item In der Praxis zusätzlich: Zeit für Ein-/Ausgabe, etc...
+\end{itemize}
+\subsubsection{Verbrauchter Speicher für Programm und Datenstrukturen}
+\begin{itemize}
+    \item Platz für das Programm selbst
+    \item Platz für statische Datenstrukturen
+    \item Platz für dynamsiche Datenstrukturen
+\end{itemize}
+
+\subsubsection{Analyse von Algorithmen}
+\begin{itemize}
+    \item formale Betrachtung des Algorithmus
+    \item theoretische Abschätzung der Laufzeit oder des Speicherbedarfs abhängig von der Eingabegröße
+\end{itemize}
+
+\subsection{Pseudocode}
+Zur Beschreibung von Algorithmen wird oftmals Pseudocode verwendet, da dieser klar von Programmcode unterschieden werden kann und dieser Redundanzen oder Unklarheiten, die durch \dq Besonderheiten\dq einer bestimmten Programmiersprache entstehen, vorbeugt.
+
+\subsection{Algorithm Engineering}
+Klassiche Algorithmik beschränkt sich auf die Theorie\\
+Beim tatsächlichen Design von Algorithmen sollte neben der theoretischen Analyse aber auch immer eine experimentelle Evaluierung stattfinden. Das Gebiet \anfuehrung{Algorithm Engineering} schließt also die Lücke zwischen Theorie und Praxis.
+
+\subsection{Korrektheit / Design by Contract}
+\subsubsection{Contracts}
+Auch \anfuehrung{Verträge} genannt, bestehen aus:
+\begin{itemize}
+    \item \important{Vorbedingungen (preconditions)}: Zusicherungen, die beim Aufruf (der Funktion/Algorithmus) einzuhalten sind.
+    \item \important{Nachbedingungen (postconditions)}: Zusicherungen, die am Ende (der Funktion/Algorithmus) gelten
+\end{itemize}
+\subsubsection{Assertions}
+Aussagen über den Zustand der Programmausführung
+\begin{itemize}
+    \item \important{Vorbedingung}: Bedingung für korrektes Funktionieren einer Funktion.
+    \item \important{Nachbedingung}: Leistungsgarantie einer Funktion, falls Vorbedingung erfüllt.
+\end{itemize}
+
+\subsubsection{Invarianten}
+Zusicherungen, die an einer bestimmten Stelle (im Programm/Algoithmus) gelten
+\begin{itemize}
+    \item \important{Schleifeninvarianten}: Gelten vor/nach jeder Ausführung des Schleifenkörpers.
+    \\\textit{Genauer}:
+    \begin{itemize}
+        \item nach der Zuweisung der Laufvariable
+        \item Nach jeder Prüfung, ob die Schleife noch weiterhin ausgeführt wird
+        \item Vor der Ausführung des Schleifenrumpfes
+        \item Nach der Inkrementierung der Laufvariable
+        \item Nach der Schleife.
+    \end{itemize}
+    \item \important{Datenstrukturinvarianten}: Gelten vor/nach jedem Aufruf einer Operation auf einem abstrakten Datentypen.
+\end{itemize}
+Invarianten sind zentrales Mittel für Korrektheitsbeweise im Algorithmen-/Programmentwurf.
+
+\newpage
+\section{Laufzeitanalyse von Algorithmen}
+\subsection{Asymptotischer Aufwand / O-Kalkül}
+Bereits aus GBI bekannt:\\
+$O(f(n))=\set{g(n)\mid\exists c > 0: \exists n_0\in\N:\forall n \geq n_0:g(n)\leq c\cdot f(n)}$\\
+$\Theta(f(n))=\set{g(n)\mid\exists c > 0: \exists n_0\in\N:\forall n \geq n_0:g(n)= c\cdot f(n)}$\\
+$\Omega(f(n))=\set{g(n)\mid\exists c > 0: \exists n_0\in\N:\forall n \geq n_0:g(n)\geq c\cdot f(n)}$\\
+Zusätzlich definieren wir \\
+$o(f(n))=\set{g(n)\mid\forall c > 0: \exists n_0\in\N:\forall n \geq n_0:g(n)\leq c\cdot f(n)}$, also \anfuehrung{echt kleiner/langsamer}, sowie\\
+$\omega(f(n))=\set{g(n)\mid\forall c > 0: \exists n_0\in\N:\forall n \geq n_0:g(n)\geq c\cdot f(n)}$, also  \anfuehrung{echt größer/schneller}.
+\subsubsection{Rechenregeln im O-Kalkül}
+\begin{itemize}
+    \item $\forall c > 0:\;cf(n)\in\Theta(f(n))$
+    \item $\displaystyle{\sum^k_{i_0}}a_in^i\in O(n^k)$ \qquad (Der größte Exponent im Polynom entscheidet)
+    \item $f(n)+g(n)\in\Omega(f(n))$
+    \item $f(n)+g(n)\in O(f(n)), \text{ falls }g(n)\in O(f(n))$
+    \item $O(f(n)) \cdot O(g(n)) = O(f(n)\cdot g(n))$
+\end{itemize}
+
+\subsubsection{Rechenregeln für Algorithmen}
+\begin{itemize}
+    \item $T(I;I') = T(I) + T(I')$
+    \item $T(\word{if }C\word{ then } I \word{ else } I') \in O(T(C)+\textit{max}(T(I), T(I'))$
+    \item $T(I;I') = T(I) + T(I')$
+\end{itemize}
+
+\subsection{Master Theorem - Laufzeit \textit{rekursiver} Algorithmen}
+Beschreibe $r(n)\begin{cases}
+\word{a} & \text{falls }n=1\text{ (Basisfall)}\\
+\word{c}\cdot n+\word{d}\cdot r(\frac{n}{\word{b}}) & \text{falls }n>1\text{ (teile und herrsche)}
+\end{cases}$ die Laufzeit eines \textsc{Teile und Herrsche}-Algorithmus und außerdem gelte $\word{a}, \word{b}, \word{c}, \word{d}>0$ und $n=\word{b}^k$ für $k\in\N$.\\
+Dann gilt:
+\[
+    r(n)\in\begin{cases}
+        \Theta(n)&\text{falls d<b}\\
+        \Theta(n\cdot log(n))&\text{falls d=b}\\
+        \Theta(n^{log_b(d)})&\text{falls d>b}
+    \end{cases}
+\]
+\textit{Die Werte a und c sind also für die asymptotische Laufzeit irrelevant.}
+\subsubsection{Beispiele}
+\begin{itemize}
+    \item $d<b$: Median bestimmen\\
+    \item $d=b$: Sortieralgorithmen wie mergesort, quicksort\\
+    \item $d>b$: rekursive Multiplikation, Karatsuba-Ofman-Multiplikation
+\end{itemize}

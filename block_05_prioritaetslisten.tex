@@ -1,0 +1,64 @@
+\section{Binäre Heaps/Binary Heap}
+\begin{itemize}
+    \item Binärbaum, Höhe $\lfloor log(n) \rfloor$, fehlende Blätter rechts unten.
+    \item Minimum steht an der Wurzel
+    \item Änderungen immer nur entlang des Pfades von Wurzel bis Blatt.
+\end{itemize}
+
+\begin{PseudoCode}
+Class BinaryHeap(w: $\mathbf{N}$) of Element
+    h: Array [1..w] of Element
+    n = 0 : $\mathbf{N}$
+    invariant $\forall j \in 2..n: h[\lfloor j/2 \rfloor] \leq h[j]$
+    Function min assert n > 0; return h[1]
+\end{PseudoCode}
+
+\begin{PseudoCode}[caption=Einfügen in O(log $n$)]
+Function insert(e: Element)
+    assert n < w
+    n++
+    h[n] := e
+    siftUp(n)
+\end{PseudoCode}
+
+\begin{PseudoCode}[caption=Kleinstes Element entfernen in O($\log n$)]
+Function deleteMin(): Element
+    result = h[1]
+    h[1] = h[n]
+    n--
+    siftDown(1)
+    return result
+\end{PseudoCode}
+
+\begin{PseudoCode}[caption=Heap bauen in O($n$)]
+Procedure buildHeap()
+    for i := $\lfloor n/2 \rfloor$ downto 1 do
+        siftDown(i)
+\end{PseudoCode}
+
+\begin{PseudoCode}[caption=Heapsort in O($n$ $\cdot \log n$)]
+Procedure heapSort(a: [1..n])
+    buildHeap(a)
+    for i:=n downto 2 do
+        h[i]:=deleteMin
+\end{PseudoCode}
+
+\begin{PseudoCode}[caption=siftUp Invarianten wiederherstellen in O($\log n$)]
+Procedure siftUp(i: $\mathbf{N}$)
+    assert the heap property holds except maybe at position i
+    if i = 1 $\wedge$ h[$\lfloor i/2 \rfloor$] $\leq$ h[i] then return
+    swap(h[i], h[$\lfloor i/2 \rfloor$]
+    siftUp($\lfloor i/2 \rfloor$)
+\end{PseudoCode}
+\newpage
+\begin{PseudoCode}[caption=siftDown Invarianten wiederherstellen in O($\log n$)]
+Procedure siftDown(i: $\mathbf{N}$)
+    assert heap property except, possibly at j = 2i and j = 2i+1
+    if $2i \leq n$ then
+        if 2i+1 $\textgreater$ n $\vee$ h[2i] $\leq$ h[2i+1] then m:=2i else m:=2i+1
+        assert > sibling[m] $\vee$ h[sibling(m)] $\geq$ h[m]
+        if h[i] > h[m] then
+            swap(h[i], h[m])
+            siftDown(m)
+    assert the heap property holds for the subtree rooted at i
+\end{PseudoCode}

@@ -1,0 +1,126 @@
+\documentclass{article}
+
+% Sonderzeichen ermöglichen
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{a4wide}
+\usepackage{xcolor}
+
+
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+%
+\newcommand{\version}{0.0.1}
+\newcommand{\ushort}{uwgmn}
+\newcommand{\myName}{Julian Keck | \ushort}
+\newcommand{\myEmail}{\ushort@student.kit.edu}
+\newcommand{\creationYear}{2021}
+
+%Kopf und Fußzeile
+\usepackage{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\ihead{}
+\chead{}
+\ohead{}
+\lofoot{\footnotesize Fehler oder Vorschläge? $\Rightarrow$ \myEmail }
+\cfoot{\pagemark}
+\rofoot{\small{\textcopyright}  \myName $\;$-$\;$\creationYear}
+ %\pagemark
+
+%Subtitle
+\usepackage{relsize}
+\newcommand{\subtitlerelsize}{1} %relative size: integer value
+\newcommand{\subtitlelinesep}{0.1em} %line separation: a LaTeX length
+
+% Hyperlinks in das Dokument einfügen
+\usepackage{hyperref}
+
+% Mathe-Packages einbinden
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% Graphen
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\renewcommand\labelenumi{(\roman{enumi})}
+\renewcommand\theenumi\labelenumi
+
+%Farbdefinitionen
+\definecolor{strongColor}{RGB}{189, 66, 0}
+\definecolor{lightblue}{RGB}{0, 140, 232}
+\definecolor{importantColor}{RGB}{163, 19, 0}
+\definecolor{ForestGreen}{RGB}{34,139,34}
+
+% Eigene Befehlsdefinitionen
+\newcommand{\N}{\mathbb{N_+}} %Natürliche Zahlen (ohne 0)
+\newcommand{\Nz}{{\mathbb{N}_0}} %Natürliche Zahlen (mit 0)
+\newcommand{\Z}{\mathbb{Z}} % Ganze Zahlen
+\newcommand{\Q}{\mathbb{Q}} % Rationale Zahlen
+\newcommand{\R}{\mathbb{R}} % Reelle Zahlen
+\newcommand{\vektor}[1]{\begin{pmatrix}#1\end{pmatrix}} %Vetoren
+
+\newcommand{\leer}{$\varepsilon$}
+\newcommand{\deq}{$\dot{=}$}
+
+\newcommand{\kapitel}[2]{Kapitel #1 - \textsc{#2}}
+
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\babyblue}[1]{\textcolor{lightblue}{#1}}
+
+\newcommand{\strongColor}[1]{\textcolor{strongColor}{#1}}
+\newcommand{\strong}[1]{\textbf{\strongColor{#1}}}
+
+\newcommand{\important}[1]{\textcolor{importantColor}{#1}}
+\newcommand{\verweis}[1]{\textcolor{ForestGreen}{#1}}
+
+\newcommand{\example}[1]{\textit{Beispiel: }#1}
+\newcommand{\word}[1]{\blue{\texttt{#1}}}
+\newcommand{\interpretation}[1]{\babyblue{#1}}
+\newcommand{\set}[1]{\{#1\}}
+\newcommand{\anfuehrung}[1]{\flqq #1\frqq}
+
+\newcommand{\w}{\textsf{w}}
+
+\newcommand{\wsp}{\word{\tiny $\sqcup$}}
+\newcommand{\wnot}{$\,$\word{$\lnot$}$\,$}
+\newcommand{\wand}{$\,$\word{$\land$}$\,$}
+\newcommand{\wor}{$\,$\word{$\lor$}$\,$}
+\newcommand{\wimpl}{$\,$\word{$\rightarrow$}$\,$}
+\newcommand{\wall}{$\,$\word{$\forall$}$\,$}
+\newcommand{\wexist}{$\,$\word{$\exists$}$\,$}
+\newcommand{\val}[2]{val$\null_{#1}$(#2)}
+\newcommand{\valdib}[1]{val$\null_{D,I\beta}$#1}
+
+\newcommand{\Fbox}[1]{\fbox{\strut#1}}
+\setlength{\fboxsep}{1pt}% Just for this example
+\setlength{\parindent}{0pt}% Just for this example
+
+\newcommand*{\mystrut}{\rule[-0.05\baselineskip]{0pt}{2\baselineskip}}
+\newcommand*{\wordbox}[1]{\Fbox{#1}}
+
+
+\newtheorem{satz}{Satz}
+\newtheorem{aufgabe}{Aufgabe}
+\newtheorem*{tipp*}{Tipp}
+\setlength{\parindent}{0px}
+
+\begin{document}
+\title{Zusammenfassung Algo-1 [im SS2021]\\[\subtitlelinesep]%
+    \smaller[\subtitlerelsize]{}Version \version}
+\author{Julian Keck\\uwgmn}
+%\date{10.12.2020}
+\date{\today}
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+
+
+\end{document}
